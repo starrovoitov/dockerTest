@@ -1,11 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM busybox:latest
-COPY --chmod=755 <<EOF /app/run.sh
-
-while true; do
-  echo -ne "The time is now $(date +%T)\\r"
-  sleep 1
-done
-EOF
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip3 install flask redis mysql-connector-python
 
 ENTRYPOINT /app/run.sh
